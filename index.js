@@ -1,7 +1,1 @@
-
-
-
-
-window.onload(function() {
-    console.info("init");
-})
+window.onload = function() {console.info("init");}
