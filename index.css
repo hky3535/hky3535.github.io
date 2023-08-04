@@ -18,11 +18,12 @@ body {
     max-width: 800px; max-height: 1600px;
     border-radius: 20px;
     background-color:rgba(100, 100, 100, 1);
-    padding: 60px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 
 #screen_div {

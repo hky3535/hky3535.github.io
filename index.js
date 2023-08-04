@@ -1,35 +1,6 @@
 const screen_canvas = document.getElementById('screen_canvas');
 const screen_canvas_draw = screen_canvas.getContext('2d');
 
-document.addEventListener("keydown", function(event) {
-    /** 
-     * 状态转移
-     *   上下左右
-     * 上保否左右
-     * 下否保左右
-     * 左上下保否
-     * 右上下否保
-     */
-    let next_direction = event.key;
-    if (direction === "ArrowUp" || direction === "ArrowDown") {
-        if (next_direction === "ArrowLeft" || next_direction === "ArrowRight") {
-            direction = next_direction;
-        }
-    }
-    if (direction === "ArrowLeft" || direction === "ArrowRight") {
-        if (next_direction === "ArrowUp" || next_direction === "ArrowDown") {
-            direction = next_direction;
-        }
-    }
-});
-
-document.getElementById('button_up').addEventListener('click', () => {direction = "ArrowUp"});
-document.getElementById('button_down').addEventListener('click', () => {direction = "ArrowDown"});
-document.getElementById('button_left').addEventListener('click', () => {direction = "ArrowLeft"});
-document.getElementById('button_right').addEventListener('click', () => {direction = "ArrowRight"});
-document.getElementById('button_a').addEventListener('click', () => {});
-document.getElementById('button_b').addEventListener('click', () => {});
-
 let handle;
 
 var map = [];
@@ -45,6 +16,39 @@ var game_settings = {
     "food_color": [255, 255, 200, 1],
     "snake_head_color": [255, 255, 0, 1],
     "snake_body_color": [255, 0, 255, 1],
+}
+
+document.addEventListener("keydown", function(event) {
+    /** 
+     * 状态转移
+     *   上下左右
+     * 上保否左右
+     * 下否保左右
+     * 左上下保否
+     * 右上下否保
+     */
+    let next_direction = event.key;
+    change_direction(next_direction);
+});
+
+document.getElementById('button_up').addEventListener('click', () => {change_direction("ArrowUp")});
+document.getElementById('button_down').addEventListener('click', () => {change_direction("ArrowDown")});
+document.getElementById('button_left').addEventListener('click', () => {change_direction("ArrowLeft")});
+document.getElementById('button_right').addEventListener('click', () => {change_direction("ArrowRight")});
+document.getElementById('button_a').addEventListener('click', () => {});
+document.getElementById('button_b').addEventListener('click', () => {});
+
+function change_direction(next_direction) {
+    if (direction === "ArrowUp" || direction === "ArrowDown") {
+        if (next_direction === "ArrowLeft" || next_direction === "ArrowRight") {
+            direction = next_direction;
+        }
+    }
+    if (direction === "ArrowLeft" || direction === "ArrowRight") {
+        if (next_direction === "ArrowUp" || next_direction === "ArrowDown") {
+            direction = next_direction;
+        }
+    }
 }
 
 function apply_settings() {
