@@ -173,10 +173,10 @@ function main_loop() {
      * 则游戏结束
      */
     let game_status = if_over(food, snake)
-    // if (game_status[0]) {
-    //     alert(game_status[1]);
-    //     game();
-    // }
+    if (game_status[0]) {
+        alert(game_status[1]);
+        game();
+    }
 }
 
 function game() {
