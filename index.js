@@ -89,15 +89,16 @@ function if_over(food, snake) {
         return [true, "Game Success"];
     }
 
+    let snake_head = snake[0];
+    let snake_body = snake.slice(1);
+
     if (
-        snake[0][0] === -1 || snake[0][0] === game_settings['cell_number'][0] ||
-        snake[1][0] === -1 || snake[1][0] === game_settings['cell_number'][1]
+        snake_head[0] === -1 || snake_head[0] === game_settings['cell_number'][0] ||
+        snake_head[1] === -1 || snake_head[1] === game_settings['cell_number'][1]
         ) {
         return [true, "Game Over"];
     }
 
-    let snake_head = snake[0];
-    let snake_body = snake.slice(1);
     for (let i = 1; i < snake_body.length; i ++ ){
         if (snake_head[0] === snake_body[i][0] && snake_head[1] === snake_body[i][1]) {
             return [true, "Game Over"];
