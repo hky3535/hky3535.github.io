@@ -1,6 +1,35 @@
 const screen_canvas = document.getElementById('screen_canvas');
 const screen_canvas_draw = screen_canvas.getContext('2d');
 
+document.addEventListener("keydown", function(event) {
+    /** 
+     * 状态转移
+     *   上下左右
+     * 上保否左右
+     * 下否保左右
+     * 左上下保否
+     * 右上下否保
+     */
+    let next_direction = event.key;
+    if (direction === "ArrowUp" || direction === "ArrowDown") {
+        if (next_direction === "ArrowLeft" || next_direction === "ArrowRight") {
+            direction = next_direction;
+        }
+    }
+    if (direction === "ArrowLeft" || direction === "ArrowRight") {
+        if (next_direction === "ArrowUp" || next_direction === "ArrowDown") {
+            direction = next_direction;
+        }
+    }
+});
+
+document.getElementById('button_up').addEventListener('click', () => {direction = "ArrowUp"});
+document.getElementById('button_down').addEventListener('click', () => {direction = "ArrowDown"});
+document.getElementById('button_left').addEventListener('click', () => {direction = "ArrowLeft"});
+document.getElementById('button_right').addEventListener('click', () => {direction = "ArrowRight"});
+document.getElementById('button_a').addEventListener('click', () => {});
+document.getElementById('button_b').addEventListener('click', () => {});
+
 let handle;
 
 var map = [];
@@ -91,7 +120,7 @@ function if_over(food, snake) {
 
     if (
         snake[0][0] === -1 || snake[0][0] === game_settings['cell_number'][0] ||
-        snake[1][0] === -1 || snake[1][0] === game_settings['cell_number'][1]
+        snake[0][1] === -1 || snake[0][1] === game_settings['cell_number'][1]
         ) {
         return [true, "Game Over"];
     }
@@ -107,34 +136,7 @@ function if_over(food, snake) {
     return [false, null];
 }
 
-document.addEventListener("keydown", function(event) {
-    /** 
-     * 状态转移
-     *   上下左右
-     * 上保否左右
-     * 下否保左右
-     * 左上下保否
-     * 右上下否保
-     */
-    let next_direction = event.key;
-    if (direction === "ArrowUp" || direction === "ArrowDown") {
-        if (next_direction === "ArrowLeft" || next_direction === "ArrowRight") {
-            direction = next_direction;
-        }
-    }
-    if (direction === "ArrowLeft" || direction === "ArrowRight") {
-        if (next_direction === "ArrowUp" || next_direction === "ArrowDown") {
-            direction = next_direction;
-        }
-    }
-});
 
-document.getElementById('button_up').addEventListener('click', () => {direction = "ArrowUp"});
-document.getElementById('button_down').addEventListener('click', () => {direction = "ArrowDown"});
-document.getElementById('button_left').addEventListener('click', () => {direction = "ArrowLeft"});
-document.getElementById('button_right').addEventListener('click', () => {direction = "ArrowRight"});
-document.getElementById('button_a').addEventListener('click', () => {});
-document.getElementById('button_b').addEventListener('click', () => {});
 
 function main_loop() {
     /**
