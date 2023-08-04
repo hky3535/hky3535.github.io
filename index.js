@@ -38,7 +38,7 @@ var direction = "ArrowRight";
 var food = [];
 
 var game_settings = {
-    "cell_size": [20, 20],
+    "cell_size": [40, 40],
     "cell_number": [10, 10],
     "screen_canvas_color": [100, 100, 100, 1],
 
