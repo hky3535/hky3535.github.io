@@ -1,5 +1,5 @@
-const game_canvas = document.getElementById('game_canvas');
-const game_canvas_draw = game_canvas.getContext('2d');
+const screen_canvas = document.getElementById('screen_canvas');
+const screen_canvas_draw = screen_canvas.getContext('2d');
 
 let handle;
 
@@ -11,7 +11,7 @@ var food = [];
 var game_settings = {
     "cell_size": [20, 20],
     "cell_number": [10, 10],
-    "game_canvas_color": [0, 0, 0, 1],
+    "screen_canvas_color": [100, 100, 100, 1],
 
     "food_color": [255, 255, 200, 1],
     "snake_head_color": [255, 255, 0, 1],
@@ -26,9 +26,9 @@ function apply_settings() {
     food = [];
 
     /**基础画面设置 */
-    game_canvas.width = game_settings["cell_size"][0] * game_settings["cell_number"][0];
-    game_canvas.height = game_settings["cell_size"][1] * game_settings["cell_number"][1];
-    game_canvas.style.backgroundColor = `rgba(${game_settings["game_canvas_color"].join(", ")})`;
+    screen_canvas.width = game_settings["cell_size"][0] * game_settings["cell_number"][0];
+    screen_canvas.height = game_settings["cell_size"][1] * game_settings["cell_number"][1];
+    screen_canvas.style.backgroundColor = `rgba(${game_settings["screen_canvas_color"].join(", ")})`;
 
     /**初始化地图列表 */
     for (let col = 0; col < game_settings["cell_number"][0]; col++) {
@@ -47,8 +47,8 @@ function draw(position, item_name) {
     let cell_width = game_settings["cell_size"][0];
     let cell_height = game_settings["cell_size"][1];
 
-    game_canvas_draw.fillStyle = `rgba(${game_settings[item_name].join(", ")})`;
-    game_canvas_draw.fillRect(
+    screen_canvas_draw.fillStyle = `rgba(${game_settings[item_name].join(", ")})`;
+    screen_canvas_draw.fillRect(
         position[0]*cell_width, position[1]*cell_height, 
         cell_width, cell_height);
 }
@@ -89,16 +89,15 @@ function if_over(food, snake) {
         return [true, "Game Success"];
     }
 
-    let snake_head = snake[0];
-    let snake_body = snake.slice(1);
-
     if (
-        snake_head[0] === -1 || snake_head[0] === game_settings['cell_number'][0] ||
-        snake_head[1] === -1 || snake_head[1] === game_settings['cell_number'][1]
+        snake[0][0] === -1 || snake[0][0] === game_settings['cell_number'][0] ||
+        snake[1][0] === -1 || snake[1][0] === game_settings['cell_number'][1]
         ) {
         return [true, "Game Over"];
     }
 
+    let snake_head = snake[0];
+    let snake_body = snake.slice(1);
     for (let i = 1; i < snake_body.length; i ++ ){
         if (snake_head[0] === snake_body[i][0] && snake_head[1] === snake_body[i][1]) {
             return [true, "Game Over"];
@@ -130,6 +129,13 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
+document.getElementById('button_up').addEventListener('click', () => {direction = "ArrowUp"});
+document.getElementById('button_down').addEventListener('click', () => {direction = "ArrowDown"});
+document.getElementById('button_left').addEventListener('click', () => {direction = "ArrowLeft"});
+document.getElementById('button_right').addEventListener('click', () => {direction = "ArrowRight"});
+document.getElementById('button_a').addEventListener('click', () => {});
+document.getElementById('button_b').addEventListener('click', () => {});
+
 function main_loop() {
     /**
      * 控制蛇的方向 
@@ -156,7 +162,7 @@ function main_loop() {
     if (snake[0][0] === food[0] && snake[0][1] === food[1]) {
         food = draw_food();
     } else {
-        draw(snake.pop(), "game_canvas_color");
+        draw(snake.pop(), "screen_canvas_color");
     }
 
     /**
@@ -167,10 +173,10 @@ function main_loop() {
      * 则游戏结束
      */
     let game_status = if_over(food, snake)
-    if (game_status[0]) {
-        alert(game_status[1]);
-        game();
-    }
+    // if (game_status[0]) {
+    //     alert(game_status[1]);
+    //     game();
+    // }
 }
 
 function game() {
