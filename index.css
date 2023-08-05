@@ -13,84 +13,10 @@ body {
     align-items: center;
 }
 
-#gameboy_div {
-    width: 90%; height: 90%;
-    max-width: 800px; max-height: 1600px;
-    border-radius: 20px;
-    background-color:rgba(100, 100, 100, 1);
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-}
-
 #screen_div {
-    width: 100%; height: 50%;
+    width: 100%; height: 100%;
     background-color: rgba(120, 120, 120, 1);
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-#controller_div {
-    width: 100%; height: 50%;
-    background-color: rgba(140, 140, 140, 1);
-}
-#score_board_div {
-    width: 100%; height: 30%;
-    background-color: rgba(160, 160, 160, 1);
-}
-
-#button_div {
-    width: 100%; height: 70%;
-    background-color: rgba(180, 180, 180, 1);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-#button_arrow_div {
-    position: relative;
-    width: 40%;
-    padding-bottom: 40%;
-    border-radius: 10px;
-    background-color: rgba(200, 200, 200, 1);
-}
-#button_ab_div {
-    position: relative;
-    width: 40%;
-    padding-bottom: 40%;
-    margin-left: 5%;
-    border-radius: 10px;
-    background-color: rgba(200, 220, 200, 1);
-}
-
-#button_up{top: 5%; left: 50%; transform: translate(-50%, 0px);}
-#button_down{bottom: 5%; left: 50%; transform: translate(-50%, 0px);}
-#button_left{top: 50%; left: 5%; transform: translate(0px, -50%);}
-#button_right{top: 50%; right: 5%; transform: translate(0px, -50%);}
-#button_up span     {top: 0px;}
-#button_down span   {bottom: -3px;}
-#button_left span   {left: 4px;top: -1px;}
-#button_right span  {right: 4px;top: -1px;}
-
-#button_a {top: 15%; right: 15%;}
-#button_b {bottom: 15%; left: 15%;}
-#button_a span {left:9px;}
-#button_b span {left:9px;}
-
-button {
-    position: absolute;
-    width: 35%; height: 35%;
-    border-radius: 9999px;
-    background-color: rgba(0, 0, 0, 0.2);
-    border: 0px solid rgba(0, 0, 0, 0.3);
-}
-button span {
-    position: absolute;
-}
-button:active {
-    background-color: rgba(0, 0, 0, 0.2);
 }

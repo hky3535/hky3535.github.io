@@ -18,6 +18,9 @@ var game_settings = {
     "snake_body_color": [255, 0, 255, 1],
 }
 
+var score = 0;
+var score_max = game_settings['cell_number'][0] * game_settings['cell_number'][1] - snake.length;
+
 document.addEventListener("keydown", function(event) {
     /** 
      * 状态转移
@@ -30,13 +33,6 @@ document.addEventListener("keydown", function(event) {
     let next_direction = event.key;
     change_direction(next_direction);
 });
-
-document.getElementById('button_up').addEventListener('click', () => {change_direction("ArrowUp")});
-document.getElementById('button_down').addEventListener('click', () => {change_direction("ArrowDown")});
-document.getElementById('button_left').addEventListener('click', () => {change_direction("ArrowLeft")});
-document.getElementById('button_right').addEventListener('click', () => {change_direction("ArrowRight")});
-document.getElementById('button_a').addEventListener('click', () => {});
-document.getElementById('button_b').addEventListener('click', () => {});
 
 function change_direction(next_direction) {
     if (direction === "ArrowUp" || direction === "ArrowDown") {
@@ -57,6 +53,8 @@ function apply_settings() {
     snake = [[3, 0], [2, 0], [1, 0], [0, 0]];
     direction = "ArrowRight";
     food = [];
+    score = 0;
+    score_max = game_settings['cell_number'][0] * game_settings['cell_number'][1] - snake.length;
 
     /**基础画面设置 */
     screen_canvas.width = game_settings["cell_size"][0] * game_settings["cell_number"][0];
@@ -119,28 +117,26 @@ function if_over(food, snake) {
      */
 
     if (food[0] === -1 && food[1] === -1) {
-        return [true, "Game Success"];
+        return [true, "Game Success\nscore: 100/100"];
     }
 
     if (
         snake[0][0] === -1 || snake[0][0] === game_settings['cell_number'][0] ||
         snake[0][1] === -1 || snake[0][1] === game_settings['cell_number'][1]
         ) {
-        return [true, "Game Over"];
+        return [true, "Game Over\nscore: " + Math.round(score*100/score_max) + "/100"];
     }
 
     let snake_head = snake[0];
     let snake_body = snake.slice(1);
     for (let i = 1; i < snake_body.length; i ++ ){
         if (snake_head[0] === snake_body[i][0] && snake_head[1] === snake_body[i][1]) {
-            return [true, "Game Over"];
+            return [true, "Game Over\nscore: " + Math.round(score*100/score_max) + "/100"];
         }
     }
 
     return [false, null];
 }
-
-
 
 function main_loop() {
     /**
@@ -167,6 +163,7 @@ function main_loop() {
      */
     if (snake[0][0] === food[0] && snake[0][1] === food[1]) {
         food = draw_food();
+        score += 1;
     } else {
         draw(snake.pop(), "screen_canvas_color");
     }
