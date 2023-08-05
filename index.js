@@ -37,16 +37,14 @@ function change_direction(direction_event) {
      * 左上下保否
      * 右上下否保
      */
-    if (direction === "ArrowUp" || direction === "ArrowDown") {
-        if (direction_event === "ArrowLeft" || direction_event === "ArrowRight") {
-            if (next_direction === direction) {
+    if (next_direction === direction) {
+        if (direction === "ArrowUp" || direction === "ArrowDown") {
+            if (direction_event === "ArrowLeft" || direction_event === "ArrowRight") {
                 next_direction = direction_event;
             }
         }
-    }
-    if (direction === "ArrowLeft" || direction === "ArrowRight") {
-        if (direction_event === "ArrowUp" || direction_event === "ArrowDown") {
-            if (next_direction === direction) {
+        if (direction === "ArrowLeft" || direction === "ArrowRight") {
+            if (direction_event === "ArrowUp" || direction_event === "ArrowDown") {
                 next_direction = direction_event;
             }
         }
