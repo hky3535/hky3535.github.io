@@ -6,6 +6,7 @@ let handle;
 var map = [];
 var snake = [[3, 0], [2, 0], [1, 0], [0, 0]];
 var direction = "ArrowRight";
+var next_direction = "ArrowRight";
 var food = [];
 
 var game_settings = {
@@ -16,6 +17,8 @@ var game_settings = {
     "food_color": [255, 255, 200, 1],
     "snake_head_color": [255, 255, 0, 1],
     "snake_body_color": [255, 0, 255, 1],
+
+    "speed": 200
 }
 
 var score = 0;
@@ -30,19 +33,23 @@ document.addEventListener("keydown", function(event) {
      * 左上下保否
      * 右上下否保
      */
-    let next_direction = event.key;
-    change_direction(next_direction);
+    let direction_event = event.key;
+    change_direction(direction_event);
 });
 
-function change_direction(next_direction) {
+function change_direction(direction_event) {
     if (direction === "ArrowUp" || direction === "ArrowDown") {
-        if (next_direction === "ArrowLeft" || next_direction === "ArrowRight") {
-            direction = next_direction;
+        if (direction_event === "ArrowLeft" || direction_event === "ArrowRight") {
+            if (next_direction === direction) {
+                next_direction = direction_event;
+            }
         }
     }
     if (direction === "ArrowLeft" || direction === "ArrowRight") {
-        if (next_direction === "ArrowUp" || next_direction === "ArrowDown") {
-            direction = next_direction;
+        if (direction_event === "ArrowUp" || direction_event === "ArrowDown") {
+            if (next_direction === direction) {
+                next_direction = direction_event;
+            }
         }
     }
 }
@@ -52,6 +59,7 @@ function apply_settings() {
     map = [];
     snake = [[3, 0], [2, 0], [1, 0], [0, 0]];
     direction = "ArrowRight";
+    next_direction = "ArrowRight";
     food = [];
     score = 0;
     score_max = game_settings['cell_number'][0] * game_settings['cell_number'][1] - snake.length;
@@ -144,7 +152,7 @@ function main_loop() {
      * 如果没有人为操作则继续向上一次的方向运动 
      * 如果有人为操作则朝新的方向运动 
      */
-    switch (direction) {
+    switch (next_direction) {
         case "ArrowUp":      snake.unshift([snake[0][0], snake[0][1]-1]); break;
         case "ArrowDown":    snake.unshift([snake[0][0], snake[0][1]+1]); break;
         case "ArrowLeft":    snake.unshift([snake[0][0]-1, snake[0][1]]); break;
@@ -166,6 +174,7 @@ function main_loop() {
         score += 1;
     } else {
         draw(snake.pop(), "screen_canvas_color");
+        direction = next_direction;
     }
 
     /**
@@ -185,7 +194,7 @@ function main_loop() {
 function game() {
     clearInterval(handle);
     apply_settings();
-    handle = setInterval(main_loop, 200);
+    handle = setInterval(main_loop, game_settings["speed"]);
 }
 
 game();
