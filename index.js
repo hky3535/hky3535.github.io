@@ -25,6 +25,10 @@ var score = 0;
 var score_max = game_settings['cell_number'][0] * game_settings['cell_number'][1] - snake.length;
 
 document.addEventListener("keydown", function(event) {
+    change_direction(event.key);
+});
+
+function change_direction(direction_event) {
     /** 
      * 状态转移
      *   上下左右
@@ -33,11 +37,6 @@ document.addEventListener("keydown", function(event) {
      * 左上下保否
      * 右上下否保
      */
-    let direction_event = event.key;
-    change_direction(direction_event);
-});
-
-function change_direction(direction_event) {
     if (direction === "ArrowUp" || direction === "ArrowDown") {
         if (direction_event === "ArrowLeft" || direction_event === "ArrowRight") {
             if (next_direction === direction) {
